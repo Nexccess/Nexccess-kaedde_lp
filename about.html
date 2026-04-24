@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>料金表・よくある質問 | kaede 楓 salon</title>
+  <meta name="description" content="kaede楓salonの料金メニューとよくある質問。都度払い・コース不要・入会金なし。1部位700円から。" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-hero {
+      padding: 140px 40px 72px;
+      background: linear-gradient(160deg, var(--green-pale) 0%, var(--white) 60%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* price */
+    .price-section { padding: 80px 40px; }
+    .price-note {
+      font-size: 12px; color: var(--muted); margin-bottom: 40px;
+      padding: 12px 16px; border-left: 2px solid var(--green-mid);
+      background: var(--green-pale);
+    }
+    .price-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .price-card {
+      background: var(--white); padding: 28px 24px;
+    }
+    .price-card-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light);
+    }
+    .price-card-size {
+      font-family: var(--font-serif); font-size: 22px; color: var(--green-main);
+    }
+    .price-card-time {
+      font-size: 11px; color: var(--muted); letter-spacing: .06em; margin-top: 2px;
+    }
+    .price-card-amount {
+      font-family: var(--font-serif); font-size: 26px; color: var(--black);
+      text-align: right;
+    }
+    .price-card-amount span { font-size: 12px; color: var(--muted); }
+    .price-card-parts { font-size: 12px; color: var(--muted); line-height: 1.9; }
+
+    .price-special {
+      margin-top: 1px; background: var(--green-main); padding: 28px 24px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+    }
+    .price-special-item { padding: 20px; border-right: 1px solid rgba(255,255,255,.1); }
+    .price-special-item:last-child { border-right: none; }
+    .price-special-label {
+      font-size: 10px; letter-spacing: .15em; color: var(--green-light);
+      text-transform: uppercase; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .price-special-hot {
+      font-size: 9px; background: var(--gold); color: #fff;
+      padding: 1px 5px; letter-spacing: .05em;
+    }
+    .price-special-name { font-family: var(--font-serif); font-size: 18px; color: #fff; margin-bottom: 4px; }
+    .price-special-desc { font-size: 12px; color: rgba(255,255,255,.6); line-height: 1.7; }
+    .price-special-amount {
+      font-family: var(--font-serif); font-size: 24px; color: #fff;
+      margin-top: 12px;
+    }
+    .price-special-amount span { font-size: 12px; color: rgba(255,255,255,.6); }
+
+    .price-merit {
+      margin-top: 32px; padding: 24px;
+      border: 1px solid var(--green-border);
+      background: var(--green-pale);
+    }
+    .price-merit-title { font-size: 13px; font-weight: 500; color: var(--green-dark); margin-bottom: 12px; }
+    .price-merit-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .price-merit-item {
+      font-size: 12px; color: var(--green-main);
+      padding: 4px 12px; border: 1px solid var(--green-mid);
+      background: #fff;
+    }
+
+    /* FAQ */
+    .faq-section { padding: 80px 40px; background: #f7f8f4; }
+    .faq-list { margin-top: 48px; max-width: 720px; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-q {
+      padding: 22px 0; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px;
+    }
+    .faq-q-text {
+      font-size: 15px; font-weight: 500; line-height: 1.5; color: var(--black);
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .faq-q-text::before {
+      content: 'Q'; font-family: var(--font-serif); font-size: 16px;
+      color: var(--green-main); flex-shrink: 0; margin-top: 1px;
+    }
+    .faq-icon {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border: 1px solid var(--border); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 12px; color: var(--muted); transition: transform .2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      font-size: 14px; color: var(--muted); line-height: 1.9;
+      padding: 0 0 22px 30px; display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* access */
+    .access-section { padding: 80px 40px; }
+    .access-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      margin-top: 48px;
+    }
+    .access-item { background: var(--white); padding: 28px 24px; }
+    .access-label {
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .access-value { font-size: 14px; line-height: 1.9; }
+    .access-value a { color: var(--green-main); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .about-hero { padding: 120px 20px 56px; }
+      .price-section, .faq-section, .access-section { padding: 56px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-leaf">🍁</span>
+    <div>
+      <div class="nav-logo-text">kaede salon</div>
+      <div class="nav-logo-sub">Men's Depilation</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="diagnosis.html">診断ツール</a></li>
+    <li><a href="column.html">コラム</a></li>
+    <li><a href="about.html" class="active">料金・FAQ</a></li>
+    <li><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a></li>
+  </ul>
+</nav>
+
+<div class="about-hero">
+  <div class="fade-in">
+    <div class="section-eyebrow">Menu &amp; Price / FAQ</div>
+    <h1 class="section-title">料金表・<em>よくある質問</em></h1>
+    <p class="section-desc">
+      すべて都度払い・税込。コース加入不要。隠れた費用は一切ありません。<br>
+      1部位700円から、まずはお試しください。
+    </p>
+  </div>
+</div>
+
+<!-- PRICE -->
+<section class="price-section">
+  <div class="section-eyebrow fade-in">Menu &amp; Price</div>
+  <h2 class="section-title fade-in">料金メニュー</h2>
+
+  <div class="price-note fade-in">
+    ※ 料金はすべて税込です。　※ コース加入・回数券・入会金は不要です。　※ 1回だけのご利用も大歓迎（次回勧誘なし）。<br>
+    ※ 料金は予告なく変更になる場合があります。最新情報はLINEにてご確認ください。
+  </div>
+
+  <div class="price-grid fade-in">
+    <div class="price-card">
+      <div class="price-card-head">
+        <div>
+          <div class="price-card-size">S パーツ</div>
+          <div class="price-card-time">5分 / 1部位</div>
+        </div>
+        <div class="price-card-amount">¥700<span>〜</span></div>
+      </div>
+      <div class="price-card-parts">
+        鼻下 / あご / 顎下 / 唇下 / ほほ / もみあげ<br>
+        首（上）/ 首（下）/ 眉上 / 手の指 / 手の甲<br>
+        足の指 / 足の甲 / 乳輪周り / へそまわり / 胸の間
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="price-card-head">
+        <div>
+          <div class="price-card-size">M パーツ</div>
+          <div class="price-card-time">10分 / 1部位</div>
+        </div>
+        <div class="price-card-amount">¥1,400</div>
+      </div>
+      <div class="price-card-parts">
+        鎖骨 / 肩 / わき / うなじ<br>
+        へそ下 / Vライン上 / ヒザまわり / ヒジまわり
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="price-card-head">
+        <div>
+          <div class="price-card-size">ML パーツ</div>
+          <div class="price-card-time">20分 / 1部位</div>
+        </div>
+        <div class="price-card-amount">¥2,800</div>
+      </div>
+      <div class="price-card-parts">
+        ヒジ上 / ヒジ下 / 胸 / 腹
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="price-card-head">
+        <div>
+          <div class="price-card-size">L パーツ</div>
+          <div class="price-card-time">30分 / 1部位</div>
+        </div>
+        <div class="price-card-amount">¥4,200</div>
+      </div>
+      <div class="price-card-parts">
+        背中（上）/ 背中（下）/ おしり<br>
+        Vライン / Iライン / Oライン
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="price-card-head">
+        <div>
+          <div class="price-card-size">LL パーツ</div>
+          <div class="price-card-time">35分 / 1部位</div>
+        </div>
+        <div class="price-card-amount">¥4,900</div>
+      </div>
+      <div class="price-card-parts">
+        太もも / ヒザ下
+      </div>
+    </div>
+  </div>
+
+  <!-- Special -->
+  <div class="price-special fade-in">
+    <div class="price-special-item">
+      <div class="price-special-label"><span class="price-special-hot">HOT</span>スペシャル</div>
+      <div class="price-special-name">全身脱毛</div>
+      <div class="price-special-desc">一番人気！VIOは含みません</div>
+      <div class="price-special-amount">¥11,000<span> / 120分</span></div>
+    </div>
+    <div class="price-special-item">
+      <div class="price-special-label">スペシャル</div>
+      <div class="price-special-name">顔のみ</div>
+      <div class="price-special-desc">つるつるお肌で印象UP！</div>
+      <div class="price-special-amount">¥3,000<span> / 25分</span></div>
+    </div>
+    <div class="price-special-item">
+      <div class="price-special-label">スペシャル</div>
+      <div class="price-special-name">VIO</div>
+      <div class="price-special-desc">臭いや蒸れの解消に！</div>
+      <div class="price-special-amount">¥4,000<span> / 25分</span></div>
+    </div>
+    <div class="price-special-item">
+      <div class="price-special-label"><span class="price-special-hot">NEW</span>freeコース</div>
+      <div class="price-special-name">30分 / 60分</div>
+      <div class="price-special-desc">時間内ならお好きな部位を何パーツでも</div>
+      <div class="price-special-amount" style="font-size: 16px; margin-top: 8px;">料金はご来店時にご確認ください</div>
+    </div>
+  </div>
+
+  <div class="price-merit fade-in">
+    <div class="price-merit-title">都度払いのメリット</div>
+    <div class="price-merit-list">
+      <span class="price-merit-item">月額費用ゼロ・縛りなし</span>
+      <span class="price-merit-item">高額コース・勧誘の電話なし</span>
+      <span class="price-merit-item">1部位700円〜お試し可</span>
+      <span class="price-merit-item">出張・転勤が多い方も安心</span>
+      <span class="price-merit-item">男女スタッフ指名可能</span>
+      <span class="price-merit-item">LGBT フレンドリー</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-eyebrow fade-in">FAQ</div>
+  <h2 class="section-title fade-in">よくある質問</h2>
+  <p class="section-desc fade-in">初めての方もご安心ください。LINEからもお気軽にご質問いただけます。</p>
+
+  <div class="faq-list fade-in">
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">スタッフは男性・女性、指名できますか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">はい、できます。ご予約時にお気軽にご相談ください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">脱毛って、痛いんですか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">最大でも輪ゴムで弾くほどです。毛量とご希望に合わせつつ、お客様の痛みをお聞きしながら調整させていただいております。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">何回くらい通えばいいですか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">部位によってかなり異なります。毛周期を加味したタイミングで5回ほどで完了なさるお客様が多いです。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">VIOをやったら、いわゆるパイパンになってしまいますか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">Vラインについては、お客様のお好みの位置のみを施術しております。もちろん全部も可能ですが、料金は一部でも変わりません。施術時にお気軽にご相談ください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">脱毛できない箇所はありますか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">粘膜にも光照射してしまう部位（鼻の中）、日焼け直後のお肌、大きなホクロや極端な黒ずみ、タトゥー部分についてはお断りしております。事前にお写真をお送りいただければ施術可否をお知らせできます。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">医療脱毛の方が安心ではないですか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">当店では医療行為にあたらない範囲で施術しております。光の出力は家庭用脱毛器より強く、医療用より弱いです。お肌への負担を考えると当店の出力で十分ご期待に応えられると考えています。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">お店にシャワーはありますか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">申し訳ございません、ありません。施術に使うジェルはスタッフが丁寧にふきとります。保湿効果もありますので、そのままご帰宅いただき、数日はご自宅でさらに保湿することをおすすめします。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">２人で入店できますか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">はい、二人でも入店できます。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">１回だけでもいいですか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">もちろんです！まずはお試しで１部位「700円」だけをやっていただいても構いません。お支払いいただいたら、次回の勧誘をすることもなく笑顔でお送りします。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">他のお客さんに見られたくないです。</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">予約時間は他のお客様と店内での時間が重ならないようにしております。遅刻・延長の場合は他のお客様をご案内してしまう可能性がありますので、ご注意ください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <div class="faq-q-text">どのような年齢層のお客さんが多いですか？</div>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">30代のお客様が中心ですが、最近は介護を意識された50代以上のお客様も増えています。</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section class="access-section">
+  <div class="section-eyebrow fade-in">Access</div>
+  <h2 class="section-title fade-in">アクセス・店舗情報</h2>
+
+  <div class="access-grid fade-in">
+    <div class="access-item">
+      <div class="access-label">Address</div>
+      <div class="access-value">〒111-0023<br>東京都台東区東浅草1丁目9-2</div>
+    </div>
+    <div class="access-item">
+      <div class="access-label">Station</div>
+      <div class="access-value">浅草駅（各線）から徒歩約10分<br>近隣パーキング多数あり</div>
+    </div>
+    <div class="access-item">
+      <div class="access-label">Hours</div>
+      <div class="access-value">11:00〜20:00<br>定休日：毎週月曜日</div>
+    </div>
+    <div class="access-item">
+      <div class="access-label">Contact</div>
+      <div class="access-value">
+        <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">LINE で予約・相談</a><br>
+        <a href="https://maps.app.goo.gl/VHNE5CEZSQLNcGGT6" target="_blank" rel="noopener">Google Map で開く</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band fade-in">
+  <div class="section-eyebrow">AI Tool</div>
+  <h2 class="section-title">まず自分の状況を、<em>整理する</em>。</h2>
+  <p class="cta-band-desc">5問・約1分。あなたにぴったりのケアプランをAIが提示します。</p>
+  <div class="cta-band-btns">
+    <a href="diagnosis.html" class="btn-white">AI診断を試す</a>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="btn-outline">💬 LINEで予約する</a>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">🍁 kaede 楓 salon</div>
+    <div class="footer-sub">東京最安値水準・都度払いのメンズ脱毛サロン / 台東区東浅草</div>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="diagnosis.html">AI診断</a>
+    <a href="column.html">コラム</a>
+    <a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a>
+  </div>
+  <div class="footer-copy">© 2026 kaede 楓 salon. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

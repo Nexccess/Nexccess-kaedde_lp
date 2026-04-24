@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>メンズ脱毛コラム | kaede 楓 salon</title>
+  <meta name="description" content="メンズ脱毛・ボディケアの論点を実例ベースで整理。ひげ・VIO・全身脱毛の疑問に答えるコラム集。" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .col-hero {
+      padding: 140px 40px 72px;
+      background: linear-gradient(160deg, var(--green-pale) 0%, var(--white) 60%);
+      border-bottom: 1px solid var(--border);
+    }
+    .col-hero-inner { max-width: 800px; }
+
+    .filter-bar {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin: 40px 40px 0; padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .filter-btn {
+      font-size: 11px; letter-spacing: .1em; padding: 6px 14px;
+      border: 1px solid var(--border); background: var(--white);
+      color: var(--muted); cursor: pointer; font-family: var(--font-sans);
+      transition: all .15s; text-transform: uppercase;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--green-main); color: #fff; border-color: var(--green-main);
+    }
+
+    .articles-wrap { padding: 0 40px; max-width: 900px; }
+
+    .article-featured {
+      padding: 48px 0 40px; border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 200px; gap: 40px; align-items: start;
+    }
+    .article-featured-label {
+      font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+      background: var(--green-main); color: #fff;
+      display: inline-block; padding: 3px 8px; margin-bottom: 14px;
+    }
+    .article-featured-title {
+      font-family: var(--font-serif); font-size: 24px; line-height: 1.45;
+      color: var(--black); margin-bottom: 14px;
+      text-decoration: none; display: block; transition: color .2s;
+    }
+    .article-featured-title:hover { color: var(--green-main); }
+    .article-featured-excerpt { font-size: 14px; color: var(--muted); line-height: 1.9; margin-bottom: 20px; }
+    .article-featured-meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .article-date { font-size: 11px; color: var(--muted); letter-spacing: .06em; }
+    .article-tag {
+      font-size: 9px; letter-spacing: .08em; padding: 2px 8px;
+      border: 1px solid var(--border); color: var(--muted); text-transform: uppercase;
+    }
+    .article-tag.green { border-color: var(--green-mid); color: var(--green-main); }
+    .article-thumb {
+      background: var(--green-pale); border: 1px solid var(--border);
+      aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+    }
+
+    .articles-list { padding-top: 8px; }
+    .article-item {
+      display: flex; gap: 28px; padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none; color: inherit; transition: background .15s;
+    }
+    .article-item:hover .article-item-title { color: var(--green-main); }
+    .article-item-num {
+      flex: 0 0 40px; font-family: var(--font-serif);
+      font-size: 13px; color: var(--muted); padding-top: 3px;
+    }
+    .article-item-body { flex: 1; }
+    .article-item-title {
+      font-family: var(--font-serif); font-size: 17px; line-height: 1.5;
+      margin-bottom: 8px; color: var(--black); transition: color .2s;
+    }
+    .article-item-excerpt { font-size: 13px; color: var(--muted); line-height: 1.9; margin-bottom: 12px; }
+    .article-item-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    @media (max-width: 640px) {
+      .col-hero { padding: 120px 20px 56px; }
+      .filter-bar { margin: 32px 20px 0; }
+      .articles-wrap { padding: 0 20px; }
+      .article-featured { grid-template-columns: 1fr; }
+      .article-thumb { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-leaf">🍁</span>
+    <div>
+      <div class="nav-logo-text">kaede salon</div>
+      <div class="nav-logo-sub">Men's Depilation</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="diagnosis.html">診断ツール</a></li>
+    <li><a href="column.html" class="active">コラム</a></li>
+    <li><a href="about.html">料金・FAQ</a></li>
+    <li><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a></li>
+  </ul>
+</nav>
+
+<div class="col-hero">
+  <div class="col-hero-inner fade-in">
+    <div class="section-eyebrow">Column</div>
+    <h1 class="section-title">メンズ脱毛コラム</h1>
+    <p class="section-desc">実際の施術・お客様の声をもとに、脱毛に関わる論点を整理します。</p>
+  </div>
+</div>
+
+<div class="filter-bar fade-in">
+  <button class="filter-btn active" onclick="filterArticles('all', this)">すべて</button>
+  <button class="filter-btn" onclick="filterArticles('hige', this)">ひげ脱毛</button>
+  <button class="filter-btn" onclick="filterArticles('vio', this)">VIO</button>
+  <button class="filter-btn" onclick="filterArticles('zenshin', this)">全身脱毛</button>
+  <button class="filter-btn" onclick="filterArticles('cost', this)">料金・都度払い</button>
+  <button class="filter-btn" onclick="filterArticles('kaigo', this)">介護・衛生</button>
+</div>
+
+<div class="articles-wrap" style="margin-top: 0;">
+
+  <!-- Featured -->
+  <div class="article-featured fade-in" data-tags="hige">
+    <div>
+      <div class="article-featured-label">Pickup</div>
+      <a href="#" class="article-featured-title">
+        ひげ脱毛は「何回で終わる」のか——毛周期と施術回数の正直な話
+      </a>
+      <p class="article-featured-excerpt">
+        「5回で完了」という言葉をサロン広告でよく目にするが、実際はどうか。
+        ひげは体毛の中でも特に毛周期が短く、毛量・肌質・ホルモンバランスによって大きく差が出る。
+        平均的な目安と、個人差が出やすい要因を整理する。
+      </p>
+      <div class="article-featured-meta">
+        <span class="article-date">2026.04.10</span>
+        <span class="article-tag green">ひげ脱毛</span>
+        <span class="article-tag">初回</span>
+        <span class="article-tag">回数</span>
+      </div>
+    </div>
+    <div class="article-thumb">🪒</div>
+  </div>
+
+  <!-- List -->
+  <div class="articles-list">
+
+    <a href="#" class="article-item fade-in" data-tags="vio kaigo">
+      <div class="article-item-num">01</div>
+      <div class="article-item-body">
+        <div class="article-item-title">VIO脱毛を「介護」の前に始めた50代男性——その理由と経過</div>
+        <p class="article-item-excerpt">
+          清潔感やパートナーへの配慮だけでなく、将来の介護を見据えてVIO脱毛を決断するケースが増えている。
+          実際にkaede salonで施術を開始した50代男性の声をもとに、その動機と変化を整理する。
+        </p>
+        <div class="article-item-meta">
+          <span class="article-date">2026.03.28</span>
+          <span class="article-tag green">VIO</span>
+          <span class="article-tag">介護・衛生</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="article-item fade-in" data-tags="cost">
+      <div class="article-item-num">02</div>
+      <div class="article-item-body">
+        <div class="article-item-title">「コース契約」に縛られた男性が、都度払いサロンに乗り換えた話</div>
+        <p class="article-item-excerpt">
+          使わない月も費用が発生し続けるコース契約。出張族・転勤族に都度払いが選ばれる本当の理由と、
+          乗り換え時の注意点を整理する。
+        </p>
+        <div class="article-item-meta">
+          <span class="article-date">2026.03.15</span>
+          <span class="article-tag green">都度払い</span>
+          <span class="article-tag">コース不要</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="article-item fade-in" data-tags="zenshin cost">
+      <div class="article-item-num">03</div>
+      <div class="article-item-body">
+        <div class="article-item-title">全身脱毛 11,000円は「安い」のか——コスパの正しい比較軸</div>
+        <p class="article-item-excerpt">
+          医療脱毛・コース型サロン・都度払いサロンを同じ土俵で比較するには、
+          「1回あたりの費用」だけでなく「使わない月のコスト」を含めて考える必要がある。
+        </p>
+        <div class="article-item-meta">
+          <span class="article-date">2026.03.02</span>
+          <span class="article-tag green">全身脱毛</span>
+          <span class="article-tag">料金</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="article-item fade-in" data-tags="hige">
+      <div class="article-item-num">04</div>
+      <div class="article-item-body">
+        <div class="article-item-title">ひげ脱毛は「痛い」という先入観——光脱毛と医療レーザーの出力の違い</div>
+        <p class="article-item-excerpt">
+          ひげ脱毛を躊躇する最大の理由は「痛そう」という印象だ。
+          光脱毛の出力帯と医療レーザーの差、kaede salonの施術強度の考え方を整理する。
+        </p>
+        <div class="article-item-meta">
+          <span class="article-date">2026.02.20</span>
+          <span class="article-tag green">ひげ脱毛</span>
+          <span class="article-tag">痛み</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="article-item fade-in" data-tags="vio">
+      <div class="article-item-num">05</div>
+      <div class="article-item-body">
+        <div class="article-item-title">「パイパンになる？」VIO脱毛の誤解を解く——Vラインの調整について</div>
+        <p class="article-item-excerpt">
+          VIO脱毛に関して最も多い誤解が「全部なくなる」という思い込みだ。
+          Vラインは希望の形を相談して決められる。施術前に知っておきたい基本を整理する。
+        </p>
+        <div class="article-item-meta">
+          <span class="article-date">2026.02.08</span>
+          <span class="article-tag green">VIO</span>
+          <span class="article-tag">デザイン</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="article-item fade-in" data-tags="zenshin kaigo">
+      <div class="article-item-num">06</div>
+      <div class="article-item-body">
+        <div class="article-item-title">freeコースで「背中＋腹＋胸」を30分でまとめてケアした話</div>
+        <p class="article-item-excerpt">
+          時間内ならお好きな部位を何パーツでも施術できる「freeコース」。
+          実際にどの組み合わせが効率的か、施術順と所要時間の目安を整理する。
+        </p>
+        <div class="article-item-meta">
+          <span class="article-date">2026.01.25</span>
+          <span class="article-tag green">全身脱毛</span>
+          <span class="article-tag">freeコース</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band" style="margin-top: 80px;">
+  <div class="section-eyebrow">AI Tool</div>
+  <h2 class="section-title">自分の状況を、<em>まず整理する</em>。</h2>
+  <p class="cta-band-desc">5問・約1分。あなたの現状とおすすめのケアプランをAIが提示します。</p>
+  <div class="cta-band-btns">
+    <a href="diagnosis.html" class="btn-white">AI診断を試す</a>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="btn-outline">💬 LINEで相談する</a>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">🍁 kaede 楓 salon</div>
+    <div class="footer-sub">東京最安値水準・都度払いのメンズ脱毛サロン / 台東区東浅草</div>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="diagnosis.html">AI診断</a>
+    <a href="about.html">料金・FAQ</a>
+    <a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a>
+  </div>
+  <div class="footer-copy">© 2026 kaede 楓 salon. All rights reserved.</div>
+</footer>
+
+<script>
+function filterArticles(tag, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('[data-tags]').forEach(el => {
+    if (tag === 'all' || el.dataset.tags.includes(tag)) {
+      el.style.display = '';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

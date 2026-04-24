@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI メンズ脱毛診断 | kaede 楓 salon</title>
+  <meta name="description" content="5つの質問に答えるだけ。あなたにぴったりのメンズ脱毛プランをGemini AIが無料診断します。" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .diag-wrap {
+      min-height: 100vh; padding: 100px 20px 60px;
+      display: flex; align-items: flex-start; justify-content: center;
+      background: linear-gradient(160deg, var(--green-pale) 0%, var(--white) 60%);
+    }
+    .diag-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      width: 100%; max-width: 580px;
+      padding: 40px 36px 44px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .diag-header { margin-bottom: 32px; }
+    .diag-eyebrow {
+      font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--green-mid); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .diag-eyebrow::after { content: ''; flex: 0 0 28px; height: 1px; background: var(--green-mid); }
+    .diag-title {
+      font-family: var(--font-serif); font-size: 22px;
+      line-height: 1.4; color: var(--black);
+    }
+
+    /* progress */
+    .prog-wrap { margin-bottom: 28px; }
+    .prog-bar  { height: 2px; background: #e0e0d8; }
+    .prog-fill { height: 100%; background: var(--green-mid); transition: width .4s ease; }
+    .prog-meta {
+      display: flex; justify-content: space-between;
+      margin-top: 8px; font-size: 11px; color: var(--muted); letter-spacing: .08em;
+    }
+
+    /* question */
+    .q-text { font-size: 17px; font-weight: 500; line-height: 1.6; margin-bottom: 24px; color: var(--black); }
+
+    /* options */
+    .opts { display: flex; flex-direction: column; gap: 10px; }
+    .opt-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 13px 16px; text-align: left;
+      font-size: 14px; font-family: var(--font-sans); color: var(--text);
+      cursor: pointer; display: flex; align-items: center; gap: 12px;
+      transition: border-color .15s, background .15s;
+    }
+    .opt-btn:hover    { background: var(--green-pale); border-color: var(--green-mid); }
+    .opt-btn.selected { background: var(--green-pale); border-color: var(--green-main); color: var(--green-dark); }
+    .opt-icon {
+      width: 32px; height: 32px; background: #f3f4ef;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+
+    /* next btn */
+    .next-btn {
+      margin-top: 24px; width: 100%; padding: 15px;
+      background: var(--green-main); color: #fff;
+      border: none; font-size: 13px; letter-spacing: .1em;
+      text-transform: uppercase; font-family: var(--font-sans);
+      cursor: pointer; opacity: .35; pointer-events: none;
+      transition: opacity .2s, background .2s;
+    }
+    .next-btn.active            { opacity: 1; pointer-events: auto; }
+    .next-btn.active:hover      { background: var(--green-dark); }
+
+    /* result */
+    #result-area { display: none; }
+    .result-section {
+      margin-bottom: 16px; padding: 20px;
+      background: #f7f8f4; border: 1px solid var(--border-light);
+    }
+    .result-tag {
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--green-mid); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .result-tag::after { content: ''; flex: 0 0 20px; height: 1px; background: var(--green-light); }
+    .result-text { font-size: 14px; line-height: 1.9; color: var(--text); white-space: pre-wrap; }
+
+    /* loading */
+    .loading-dots { display: inline-flex; gap: 5px; align-items: center; padding: 6px 0; }
+    .dot { width: 7px; height: 7px; background: var(--green-mid); animation: bounce 1.2s ease-in-out infinite; }
+    .dot:nth-child(2) { animation-delay: .2s; }
+    .dot:nth-child(3) { animation-delay: .4s; }
+    @keyframes bounce { 0%,60%,100%{ transform:translateY(0) } 30%{ transform:translateY(-6px) } }
+
+    /* CTA */
+    .result-cta {
+      margin-top: 24px;
+      background: var(--green-main); padding: 24px;
+    }
+    .result-cta-title { font-family: var(--font-serif); font-size: 18px; color: #fff; margin-bottom: 6px; }
+    .result-cta-sub   { font-size: 13px; color: rgba(255,255,255,.75); margin-bottom: 20px; line-height: 1.8; }
+    .result-cta-btns  { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cta-btn-a {
+      flex: 1; min-width: 140px; padding: 13px 10px;
+      font-size: 13px; font-family: var(--font-sans);
+      text-align: center; text-decoration: none; cursor: pointer; border: none;
+    }
+    .cta-btn-a.primary   { background: #fff; color: var(--green-main); }
+    .cta-btn-a.secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.5); }
+    .cta-btn-a:hover { opacity: .85; }
+
+    .restart-btn {
+      margin-top: 14px; width: 100%; padding: 11px;
+      background: none; border: 1px solid var(--border);
+      font-size: 12px; letter-spacing: .08em; font-family: var(--font-sans);
+      color: var(--muted); cursor: pointer; text-transform: uppercase;
+      transition: border-color .15s;
+    }
+    .restart-btn:hover { border-color: #aaa; }
+
+    .error-msg {
+      font-size: 13px; color: #b91c1c; padding: 10px 14px;
+      background: #fef2f2; border: 1px solid #fecaca; margin-bottom: 14px;
+    }
+
+    @media (max-width: 480px) {
+      .diag-card { padding: 28px 20px 32px; }
+      .result-cta-btns { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-leaf">🍁</span>
+    <div>
+      <div class="nav-logo-text">kaede salon</div>
+      <div class="nav-logo-sub">Men's Depilation</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="diagnosis.html" class="active">診断ツール</a></li>
+    <li><a href="column.html">コラム</a></li>
+    <li><a href="about.html">料金・FAQ</a></li>
+    <li><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a></li>
+  </ul>
+</nav>
+
+<div class="diag-wrap">
+  <div class="diag-card">
+
+    <!-- Quiz -->
+    <div id="quiz-area">
+      <div class="diag-header">
+        <div class="diag-eyebrow">AI Diagnosis</div>
+        <div class="diag-title">5つの質問に答えるだけで、<br>現状の整理と今後の視点を提示します。</div>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-bar"><div class="prog-fill" id="prog" style="width:20%"></div></div>
+        <div class="prog-meta">
+          <span id="step-label">STEP 1 / 5</span>
+          <span id="step-pct">20%</span>
+        </div>
+      </div>
+      <div class="q-text" id="q-text"></div>
+      <div class="opts" id="opts"></div>
+      <button class="next-btn" id="next-btn">次へ →</button>
+    </div>
+
+    <!-- Result -->
+    <div id="result-area">
+      <div class="diag-header">
+        <div class="diag-eyebrow">Result</div>
+        <div class="diag-title">あなたへのアドバイス</div>
+      </div>
+      <div id="error-container"></div>
+      <div class="result-section">
+        <div class="result-tag">01 — 現状の整理</div>
+        <div class="result-text" id="r1-text"><span class="loading-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+      </div>
+      <div class="result-section">
+        <div class="result-tag">02 — おすすめのケア</div>
+        <div class="result-text" id="r2-text"><span class="loading-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+      </div>
+      <div class="result-section">
+        <div class="result-tag">03 — kaede salon でできること</div>
+        <div class="result-text" id="r3-text"><span class="loading-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+      </div>
+
+      <div class="result-cta">
+        <div class="result-cta-title">まずは 700円 からお試しできます</div>
+        <div class="result-cta-sub">コース不要・都度払い・勧誘なし。東京浅草・開業4周年のメンズ脱毛サロン。</div>
+        <div class="result-cta-btns">
+          <a class="cta-btn-a primary"   href="https://kaedesalon.shop/#reserve"       target="_blank" rel="noopener">📅 予約カレンダーを見る</a>
+          <a class="cta-btn-a secondary" href="https://line.me/R/ti/p/@436hrsli"       target="_blank" rel="noopener">💬 LINEで相談する</a>
+        </div>
+      </div>
+      <button class="restart-btn" id="restart-btn">最初からやり直す</button>
+      <div style="margin-top: 16px; font-size: 11px; color: var(--muted); line-height: 1.8; text-align: center;">
+        本診断は施術効果・可否を保証するものではありません。個別の状況についてはサロンへご確認ください。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-brand">🍁 kaede 楓 salon</div>
+    <div class="footer-sub">東京最安値水準・都度払いのメンズ脱毛サロン / 台東区東浅草</div>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="column.html">コラム</a>
+    <a href="about.html">料金・FAQ</a>
+    <a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a>
+  </div>
+  <div class="footer-copy">© 2026 kaede 楓 salon. All rights reserved.</div>
+</footer>
+
+<script>
+const steps = [
+  {
+    q: "現在、気になっている部位はどこですか？",
+    opts: [
+      { label: "ひげ（顔まわり）",       icon: "😊" },
+      { label: "腕・足まわり",            icon: "💪" },
+      { label: "胸・お腹・背中",          icon: "🧍" },
+      { label: "VIO（デリケートゾーン）", icon: "🌿" },
+      { label: "全身まとめてケアしたい",  icon: "✨" }
+    ]
+  },
+  {
+    q: "脱毛・エステのご経験はありますか？",
+    opts: [
+      { label: "初めて検討している",              icon: "🔰" },
+      { label: "家庭用脱毛器を使ったことがある",  icon: "🏠" },
+      { label: "サロン経験あり（他店）",           icon: "🏪" },
+      { label: "医療脱毛を検討したことがある",     icon: "🏥" }
+    ]
+  },
+  {
+    q: "脱毛を考えたきっかけを教えてください",
+    opts: [
+      { label: "清潔感・身だしなみを整えたい",      icon: "🪒" },
+      { label: "ムダ毛のコンプレックスを解消したい",icon: "💭" },
+      { label: "介護・衛生面を考えて",              icon: "🌸" },
+      { label: "パートナーや周囲の目が気になる",    icon: "👥" },
+      { label: "特に理由はないが試してみたい",      icon: "🤔" }
+    ]
+  },
+  {
+    q: "サロン選びで重視することは？",
+    opts: [
+      { label: "料金の安さ・わかりやすさ",        icon: "💴" },
+      { label: "コース縛りなし・自由に通えること", icon: "🗓" },
+      { label: "痛みが少ないこと",                icon: "🕊" },
+      { label: "プライバシーへの配慮",            icon: "🔐" },
+      { label: "スタッフの信頼性・技術力",        icon: "⭐" }
+    ]
+  },
+  {
+    q: "初回の来店について、どのようなイメージをお持ちですか？",
+    opts: [
+      { label: "1部位だけ試してみたい（700円〜）",  icon: "👣" },
+      { label: "30分コースでまとめてケアしたい",     icon: "⏱" },
+      { label: "60分コースで全身じっくりケアしたい", icon: "🌿" },
+      { label: "まずLINEで相談してから決めたい",    icon: "💬" }
+    ]
+  }
+];
+
+let current = 0;
+const answers = [];
+let selected = null;
+
+const qText   = document.getElementById('q-text');
+const optsEl  = document.getElementById('opts');
+const nextBtn = document.getElementById('next-btn');
+const stepLbl = document.getElementById('step-label');
+const stepPct = document.getElementById('step-pct');
+const prog    = document.getElementById('prog');
+const quizArea= document.getElementById('quiz-area');
+const resArea = document.getElementById('result-area');
+
+function renderStep(idx) {
+  selected = null;
+  nextBtn.classList.remove('active');
+  const pct = Math.round(((idx + 1) / steps.length) * 100);
+  stepLbl.textContent  = `STEP ${idx + 1} / ${steps.length}`;
+  stepPct.textContent  = pct + '%';
+  prog.style.width     = pct + '%';
+  qText.textContent    = steps[idx].q;
+  optsEl.innerHTML     = '';
+  nextBtn.textContent  = idx === steps.length - 1 ? '診断する ✓' : '次へ →';
+
+  steps[idx].opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-icon">${o.icon}</span>${o.label}`;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selected = o.label;
+      nextBtn.classList.add('active');
+    });
+    optsEl.appendChild(btn);
+  });
+}
+
+nextBtn.addEventListener('click', () => {
+  if (!selected) return;
+  answers.push(selected);
+  current++;
+  if (current >= steps.length) showResult();
+  else renderStep(current);
+});
+
+document.getElementById('restart-btn').addEventListener('click', () => {
+  current = 0; answers.length = 0; selected = null;
+  quizArea.style.display = 'block';
+  resArea.style.display  = 'none';
+  renderStep(0);
+});
+
+function dots(id) {
+  document.getElementById(id).innerHTML =
+    '<span class="loading-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>';
+}
+
+function showResult() {
+  quizArea.style.display = 'none';
+  resArea.style.display  = 'block';
+  dots('r1-text'); dots('r2-text'); dots('r3-text');
+  callAPI();
+}
+
+async function callAPI() {
+  try {
+    const res = await fetch('/api/diagnose', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ answers })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || `HTTP ${res.status}`);
+    }
+
+    document.getElementById('r1-text').textContent = data.section1;
+    document.getElementById('r2-text').textContent = data.section2;
+    document.getElementById('r3-text').textContent = data.section3;
+
+  } catch (e) {
+    document.getElementById('error-container').innerHTML =
+      `<div class="error-msg">⚠️ AI接続エラーが発生しました。しばらくしてから再度お試しください。</div>`;
+    document.getElementById('r1-text').textContent = 'ご回答ありがとうございます。現在AI診断が一時的に利用できません。';
+    document.getElementById('r2-text').textContent = 'LINEまたは予約カレンダーから直接ご相談いただけます。';
+    document.getElementById('r3-text').textContent = 'kaede salonは初回700円〜、コース不要・都度払いで気軽にお試しいただけます。';
+    console.error('[diagnosis] API error:', e.message);
+  }
+}
+
+renderStep(0);
+</script>
+</body>
+</html>
