@@ -1,186 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI メンズ脱毛診断 | kaede 楓 salon</title>
-<meta name="description" content="5つの質問に答えるだけで、あなたの現状と今後のケアプランをAIが整理します。東京浅草・都度払いのメンズ脱毛サロン。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Noto+Sans+JP:wght@300;400;500&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --black:#080c08;
-  --dark:#0f1a0f;
-  --green:#1db954;
-  --green-mid:#17a847;
-  --green-pale:#e8f8ee;
-  --white:#f8faf8;
-  --muted:#8a9e8a;
-  --border:#1e2e1e;
-  --font-heading:'Barlow Condensed','Oswald',sans-serif;
-  --font-body:'Noto Sans JP',sans-serif;
-}
-html{scroll-behavior:smooth;}
-body{font-family:var(--font-body);background:var(--black);color:var(--white);font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased;}
-
-/* NAV */
-.nav{position:sticky;top:0;z-index:100;background:rgba(8,12,8,0.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 40px;height:58px;display:flex;align-items:center;justify-content:space-between;}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.nav-logo-mark{width:32px;height:32px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:16px;border-radius:2px;}
-.nav-logo-text{font-family:var(--font-heading);font-size:16px;font-weight:700;letter-spacing:.08em;color:var(--white);}
-.nav-logo-sub{font-size:9px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
-.nav-links{display:flex;gap:28px;list-style:none;}
-.nav-links a{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
-.nav-links a:hover,.nav-links a.active{color:var(--white);}
-
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--dark) 0%,#0a150a 50%,#051005 100%);}
-.hero-grid{position:absolute;inset:0;opacity:.06;background-image:linear-gradient(var(--green) 1px,transparent 1px),linear-gradient(90deg,var(--green) 1px,transparent 1px);background-size:80px 80px;}
-.hero-accent{position:absolute;right:-100px;top:50%;transform:translateY(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(29,185,84,.12) 0%,transparent 70%);}
-.hero-inner{position:relative;z-index:1;padding:100px 40px 80px;max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:60px;align-items:center;}
-.hero-eyebrow{font-family:var(--font-heading);font-size:11px;font-weight:600;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:12px;}
-.hero-eyebrow::before{content:'';width:32px;height:2px;background:var(--green);}
-.hero-title{font-family:var(--font-heading);font-size:clamp(56px,7vw,88px);font-weight:800;line-height:1;letter-spacing:.01em;text-transform:uppercase;margin-bottom:24px;}
-.hero-title .accent{color:var(--green);display:block;}
-.hero-title .sub{font-size:clamp(28px,4vw,44px);font-weight:600;color:rgba(255,255,255,.5);display:block;margin-top:4px;}
-.hero-desc{font-size:14px;color:var(--muted);line-height:2;margin-bottom:36px;max-width:440px;}
-.hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--green);color:var(--black);padding:16px 36px;font-family:var(--font-heading);font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s,transform .1s;}
-.hero-cta:hover{background:var(--green-mid);transform:translateY(-2px);}
-.hero-cta-arrow{font-size:18px;}
-.hero-note{font-size:10px;color:var(--muted);margin-top:12px;letter-spacing:.06em;}
-.hero-stats{margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
-.stat-box{background:var(--dark);padding:20px 16px;}
-.stat-num{font-family:var(--font-heading);font-size:32px;font-weight:800;color:var(--green);line-height:1;letter-spacing:-.01em;}
-.stat-label{font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:4px;}
-.hero-panel{background:var(--dark);border:1px solid var(--border);padding:32px;}
-.hero-panel-label{font-family:var(--font-heading);font-size:10px;font-weight:600;letter-spacing:.2em;color:var(--green);text-transform:uppercase;margin-bottom:16px;}
-.price-list{display:flex;flex-direction:column;gap:1px;background:var(--border);}
-.price-row{background:var(--dark);padding:14px 16px;display:flex;justify-content:space-between;align-items:baseline;}
-.price-row:hover{background:#131d13;}
-.price-part{font-size:13px;color:rgba(255,255,255,.8);}
-.price-val{font-family:var(--font-heading);font-size:20px;font-weight:700;color:var(--white);}
-.price-val span{font-size:11px;font-weight:400;color:var(--muted);}
-.price-featured{background:#0d1f0d !important;border-left:2px solid var(--green);}
-.price-featured .price-val{color:var(--green);}
-
-/* SECTIONS */
-section{padding:96px 40px;}
-.section-inner{max-width:1100px;margin:0 auto;}
-.section-label{font-family:var(--font-heading);font-size:10px;font-weight:600;letter-spacing:.3em;color:var(--green);text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:12px;}
-.section-label::after{content:'';flex:0 0 24px;height:2px;background:var(--green);}
-.section-title{font-family:var(--font-heading);font-size:clamp(36px,4.5vw,56px);font-weight:800;text-transform:uppercase;line-height:1.1;letter-spacing:.01em;margin-bottom:16px;}
-.section-title .dim{color:rgba(255,255,255,.2);}
-
-/* REASON */
-.reasons{background:var(--dark);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.reasons-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:48px;}
-.reason-card{background:var(--dark);padding:40px 32px;position:relative;transition:background .2s;}
-.reason-card:hover{background:#0a160a;}
-.reason-num{font-family:var(--font-heading);font-size:64px;font-weight:800;color:rgba(29,185,84,.12);line-height:1;margin-bottom:8px;letter-spacing:-.02em;}
-.reason-icon{font-size:28px;margin-bottom:16px;}
-.reason-title{font-family:var(--font-heading);font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px;color:var(--white);}
-.reason-desc{font-size:13px;color:var(--muted);line-height:1.9;}
-.reason-tag{margin-top:20px;display:inline-block;font-family:var(--font-heading);font-size:10px;font-weight:600;letter-spacing:.14em;padding:4px 10px;border:1px solid var(--green);color:var(--green);text-transform:uppercase;}
-
-/* PRICE SECTION */
-.price-section{background:var(--black);}
-.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;}
-.price-table{background:var(--dark);border:1px solid var(--border);}
-.price-table-head{background:#0d200d;padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.price-table-title{font-family:var(--font-heading);font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
-.price-table-badge{font-family:var(--font-heading);font-size:10px;font-weight:600;background:var(--green);color:var(--black);padding:3px 10px;letter-spacing:.1em;}
-.price-items{display:flex;flex-direction:column;gap:0;}
-.price-item{padding:14px 24px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:1fr auto;align-items:baseline;transition:background .15s;}
-.price-item:hover{background:#0a160a;}
-.price-item:last-child{border-bottom:none;}
-.price-item-name{font-size:13px;color:rgba(255,255,255,.75);}
-.price-item-sub{font-size:10px;color:var(--muted);margin-top:2px;}
-.price-item-price{font-family:var(--font-heading);font-size:22px;font-weight:700;color:var(--white);}
-.price-item-price span{font-size:11px;font-weight:400;color:var(--muted);}
-.price-item.hot{background:#0a1a0a;}
-.price-item.hot .price-item-price{color:var(--green);}
-
-/* FREE COURSE BANNER */
-.free-banner{margin-top:24px;background:linear-gradient(135deg,#0d200d,#051305);border:1px solid var(--green);padding:28px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
-.free-banner-text .tag{font-family:var(--font-heading);font-size:9px;font-weight:600;background:var(--green);color:var(--black);padding:2px 8px;letter-spacing:.12em;display:inline-block;margin-bottom:8px;}
-.free-banner-text h3{font-family:var(--font-heading);font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;}
-.free-banner-text p{font-size:12px;color:var(--muted);margin-top:6px;}
-.free-banner-prices{display:flex;gap:20px;flex-shrink:0;}
-.free-price-box{text-align:center;background:rgba(29,185,84,.08);border:1px solid rgba(29,185,84,.2);padding:16px 24px;}
-.free-price-time{font-family:var(--font-heading);font-size:28px;font-weight:800;color:var(--green);line-height:1;}
-.free-price-label{font-size:10px;color:var(--muted);letter-spacing:.1em;margin-top:4px;}
-
-/* COLUMN */
-.column-section{background:var(--dark);border-top:1px solid var(--border);}
-.column-list{margin-top:32px;display:flex;flex-direction:column;gap:1px;background:var(--border);}
-.col-item{background:var(--dark);padding:24px 28px;display:grid;grid-template-columns:90px 1fr auto;gap:20px;align-items:center;text-decoration:none;color:inherit;transition:background .15s;}
-.col-item:hover{background:#0a160a;}
-.col-item:hover .col-title{color:var(--green);}
-.col-date{font-family:var(--font-heading);font-size:11px;color:var(--muted);letter-spacing:.1em;}
-.col-title{font-size:14px;color:rgba(255,255,255,.85);line-height:1.6;transition:color .2s;}
-.col-arrow{font-size:18px;color:var(--green);}
-
-/* CTA BAND */
-.cta-band{background:var(--green);padding:80px 40px;text-align:center;}
-.cta-band .section-label{color:var(--black);justify-content:center;}
-.cta-band .section-label::after{background:var(--black);}
-.cta-band .section-title{color:var(--black);}
-.cta-band-desc{font-size:14px;color:rgba(0,0,0,.65);margin:16px auto 40px;max-width:480px;line-height:2;}
-.cta-band-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
-.btn-dark{display:inline-flex;align-items:center;gap:8px;background:var(--black);color:var(--white);padding:16px 36px;font-family:var(--font-heading);font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:opacity .2s;}
-.btn-dark:hover{opacity:.85;}
-.btn-outline-dark{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--black);color:var(--black);padding:14px 32px;font-family:var(--font-heading);font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s;}
-.btn-outline-dark:hover{background:var(--black);color:var(--green);}
-
-/* SALON INFO */
-.salon-section{background:var(--dark);border-top:1px solid var(--border);}
-.salon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:40px;}
-.salon-card{background:var(--dark);padding:28px 24px;}
-.salon-card-label{font-family:var(--font-heading);font-size:9px;font-weight:600;letter-spacing:.2em;color:var(--green);text-transform:uppercase;margin-bottom:10px;}
-.salon-card-val{font-size:14px;color:rgba(255,255,255,.8);line-height:1.9;}
-.salon-card-val a{color:var(--green);text-decoration:none;}
-
-/* FOOTER */
-footer{background:var(--black);border-top:1px solid var(--border);padding:40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
-.footer-logo{font-family:var(--font-heading);font-size:18px;font-weight:800;letter-spacing:.08em;color:rgba(255,255,255,.6);text-transform:uppercase;}
-.footer-links{display:flex;gap:24px;flex-wrap:wrap;}
-.footer-links a{font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.3);text-decoration:none;text-transform:uppercase;}
-.footer-links a:hover{color:rgba(255,255,255,.7);}
-.footer-copy{font-size:10px;color:rgba(255,255,255,.2);width:100%;}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;}
-  .hero-panel{display:none;}
-  .reasons-grid{grid-template-columns:1fr;}
-  .price-grid{grid-template-columns:1fr;}
-  .salon-grid{grid-template-columns:1fr 1fr;}
-  .free-banner{flex-direction:column;}
-}
-@media(max-width:640px){
-  nav,.nav{padding:0 20px;}
-  section{padding:64px 20px;}
-  .hero-inner{padding:90px 20px 60px;}
-  .hero-stats{grid-template-columns:repeat(3,1fr);}
-  .salon-grid{grid-template-columns:1fr;}
-  .col-item{grid-template-columns:1fr auto;gap:12px;}
-  .col-date{display:none;}
-  footer{padding:32px 20px;}
-  .cta-band{padding:60px 20px;}
-}
-
-/* FADE IN */
-.fade{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
-.fade.in{opacity:1;transform:none;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>メンズ脱毛 無料AI診断 | kaede 楓 salon</title>
+  <meta name="description" content="5つの質問に答えるだけで、あなたの現状と今後のケアプランをAIが整理します。東京浅草・都度払い・コース不要のメンズ脱毛サロン。" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<nav class="nav">
+<nav>
   <a href="index.html" class="nav-logo">
-    <div class="nav-logo-mark">🍁</div>
+    <span class="nav-logo-leaf">🍁</span>
     <div>
       <div class="nav-logo-text">kaede salon</div>
       <div class="nav-logo-sub">Men's Depilation</div>
@@ -197,190 +28,197 @@ footer{background:var(--black);border-top:1px solid var(--border);padding:40px;d
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-accent"></div>
-  <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow fade">AI Diagnosis Tool</div>
-      <h1 class="hero-title fade">
-        <span class="accent">脱毛は、</span>
-        今日から<br>動き出す。
-        <span class="sub">Men's Depilation AI</span>
-      </h1>
-      <p class="hero-desc fade">5つの質問に答えるだけで、あなたの現状と今後のケアプランをAIが整理します。</p>
-      <a href="diagnosis.html" class="hero-cta fade">今すぐ無料診断 <span class="hero-cta-arrow">→</span></a>
-      <p class="hero-note fade">法律・医療上の判断・助言を行うものではありません</p>
-      <div class="hero-stats fade">
-        <div class="stat-box"><div class="stat-num">5問</div><div class="stat-label">Questions</div></div>
-        <div class="stat-box"><div class="stat-num">約1分</div><div class="stat-label">All Free</div></div>
-        <div class="stat-box"><div class="stat-num">700円〜</div><div class="stat-label">都度払い</div></div>
-      </div>
-    </div>
-    <div class="hero-panel fade">
-      <div class="hero-panel-label">Price Menu</div>
-      <div class="price-list">
-        <div class="price-row"><span class="price-part">Sパーツ 単品</span><span class="price-val">¥700<span> 税込〜</span></span></div>
-        <div class="price-row"><span class="price-part">Mパーツ 単品</span><span class="price-val">¥1,400<span> 税込</span></span></div>
-        <div class="price-row"><span class="price-part">VIO</span><span class="price-val">¥4,000<span> 税込</span></span></div>
-        <div class="price-row price-featured"><span class="price-part">全身脱毛</span><span class="price-val">¥11,000<span> 税込</span></span></div>
-        <div class="price-row"><span class="price-part">30分 free</span><span class="price-val">要問合せ</span></div>
-        <div class="price-row"><span class="price-part">60分 free</span><span class="price-val">要問合せ</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REASONS -->
-<section class="reasons">
-  <div class="section-inner">
-    <div class="section-label fade">Why kaede</div>
-    <h2 class="section-title fade">選ばれる<br><span class="dim">3つの</span>理由</h2>
-    <div class="reasons-grid">
-      <div class="reason-card fade">
-        <div class="reason-num">01</div>
-        <div class="reason-icon">💴</div>
-        <div class="reason-title">都内最安値水準</div>
-        <p class="reason-desc">入会金・管理費・キャンセル料なし。見えない費用がないから本当に安い。1パーツ700円からお試し可能。</p>
-        <span class="reason-tag">S パーツ ¥700〜</span>
-      </div>
-      <div class="reason-card fade">
-        <div class="reason-num">02</div>
-        <div class="reason-icon">🗓</div>
-        <div class="reason-title">都度払い・縛りなし</div>
-        <p class="reason-desc">コース加入・回数券は一切不要。その日の気分で来れる。出張族・転勤族にも選ばれる理由。</p>
-        <span class="reason-tag">コース不要</span>
-      </div>
-      <div class="reason-card fade">
-        <div class="reason-num">03</div>
-        <div class="reason-icon">⭐</div>
-        <div class="reason-title">開業4周年・実績多数</div>
-        <p class="reason-desc">2020年開業から4周年突破。リピーターに支えられた確かな技術。LGBTフレンドリー対応。</p>
-        <span class="reason-tag">LGBT Welcome</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICE -->
-<section class="price-section">
-  <div class="section-inner">
-    <div class="section-label fade">Price Menu</div>
-    <h2 class="section-title fade">明快な<br><span class="dim">料金表</span></h2>
-    <div class="price-grid">
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Men's Depilation AI Diagnosis</div>
+    <h1 class="hero-title">
+      脱毛は、<em>気になった</em><br>そのときに動き出す。
+    </h1>
+    <p class="hero-desc">
+      5つの質問に答えるだけで、あなたの現状と<br>
+      今後のケアプランをAIが整理します。
+    </p>
+    <a href="diagnosis.html" class="hero-cta">今すぐ無料診断する</a>
+    <span class="hero-cta-note">法律・医療上の判断・助言を行うものではありません</span>
+    <div class="hero-stats">
       <div>
-        <div class="price-table fade">
-          <div class="price-table-head">
-            <span class="price-table-title">パーツ別 単品</span>
-          </div>
-          <div class="price-items">
-            <div class="price-item"><div><div class="price-item-name">Sパーツ</div><div class="price-item-sub">鼻下・あご・顎下 etc.</div></div><div class="price-item-price">¥700<span> 税込</span></div></div>
-            <div class="price-item"><div><div class="price-item-name">Mパーツ</div><div class="price-item-sub">わき・うなじ・Vライン上 etc.</div></div><div class="price-item-price">¥1,400<span> 税込</span></div></div>
-            <div class="price-item"><div><div class="price-item-name">MLパーツ</div><div class="price-item-sub">胸・腹・ヒジ上下 etc.</div></div><div class="price-item-price">¥2,800<span> 税込</span></div></div>
-            <div class="price-item"><div><div class="price-item-name">Lパーツ</div><div class="price-item-sub">背中・おしり・VIO etc.</div></div><div class="price-item-price">¥4,200<span> 税込</span></div></div>
-            <div class="price-item"><div><div class="price-item-name">LLパーツ</div><div class="price-item-sub">太もも・ヒザ下</div></div><div class="price-item-price">¥4,900<span> 税込</span></div></div>
-          </div>
-        </div>
+        <div class="stat-num">5問</div>
+        <div class="stat-label">Questions</div>
       </div>
       <div>
-        <div class="price-table fade">
-          <div class="price-table-head">
-            <span class="price-table-title">スペシャル</span>
-            <span class="price-table-badge">人気</span>
-          </div>
-          <div class="price-items">
-            <div class="price-item hot"><div><div class="price-item-name">全身脱毛</div><div class="price-item-sub">VIOなし・120分</div></div><div class="price-item-price">¥11,000<span> 税込</span></div></div>
-            <div class="price-item"><div><div class="price-item-name">顔のみ</div><div class="price-item-sub">25分</div></div><div class="price-item-price">¥3,000<span> 税込</span></div></div>
-            <div class="price-item"><div><div class="price-item-name">VIO</div><div class="price-item-sub">25分</div></div><div class="price-item-price">¥4,000<span> 税込</span></div></div>
-          </div>
-        </div>
-        <div class="free-banner fade">
-          <div class="free-banner-text">
-            <span class="tag">🔥 Hot Menu</span>
-            <h3>脱毛 Free コース</h3>
-            <p>時間内なら好きな部位を何パーツでも脱毛できる革新システム</p>
-          </div>
-          <div class="free-banner-prices">
-            <div class="free-price-box"><div class="free-price-time">30分</div><div class="free-price-label">Free Course</div></div>
-            <div class="free-price-box"><div class="free-price-time">60分</div><div class="free-price-label">Free Course</div></div>
-          </div>
-        </div>
+        <div class="stat-num">約1分</div>
+        <div class="stat-label">All Free</div>
+      </div>
+      <div>
+        <div class="stat-num">即時表示</div>
+        <div class="stat-label">AI Result</div>
+      </div>
+      <div>
+        <div class="stat-num">700円〜</div>
+        <div class="stat-label">都度払い</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COLUMN -->
-<section class="column-section">
-  <div class="section-inner">
-    <div class="section-label fade">Column</div>
-    <h2 class="section-title fade">最新<span class="dim">コラム</span></h2>
-    <div class="column-list">
-      <a href="column.html" class="col-item fade">
-        <span class="col-date">2026.04.10</span>
-        <span class="col-title">ひげ脱毛は「何回で終わる」のか——毛周期と施術回数の正直な話</span>
-        <span class="col-arrow">→</span>
-      </a>
-      <a href="column.html" class="col-item fade">
-        <span class="col-date">2026.03.28</span>
-        <span class="col-title">VIO脱毛を「介護」の前に始めた50代男性——その理由と経過</span>
-        <span class="col-arrow">→</span>
-      </a>
-      <a href="column.html" class="col-item fade">
-        <span class="col-date">2026.03.15</span>
-        <span class="col-title">「コース契約」に縛られた男性が、都度払いサロンに乗り換えた話</span>
-        <span class="col-arrow">→</span>
-      </a>
-    </div>
-    <div style="margin-top:24px;text-align:right;">
-      <a href="column.html" style="font-family:var(--font-heading);font-size:12px;letter-spacing:.14em;color:var(--green);text-decoration:none;text-transform:uppercase;">コラム一覧 →</a>
-    </div>
+<hr class="divider" />
+
+<!-- ABOUT -->
+<section style="padding: 96px 40px;">
+  <div class="fade-in">
+    <div class="section-eyebrow">About This Site</div>
+    <h2 class="section-title">「メンズ脱毛」を、<em>整理する</em>場所。</h2>
+    <p class="section-desc">
+      脱毛への関心は、ある日突然やってくる。<br>
+      「どこから始めればいいかわからない」「料金が不透明で怖い」<br>
+      本サイトは解決策を押しつけない。あなた自身が現状を把握し、
+      自分で判断できる状態をつくることを目的としている。
+    </p>
+  </div>
+
+  <div class="cards-grid fade-in" style="margin-top: 56px;">
+    <a href="diagnosis.html" class="card-item">
+      <div class="card-num">
+        <span class="tag">AI TOOL</span>
+        01
+      </div>
+      <div class="card-title">AIメンズ脱毛<br>無料診断</div>
+      <p class="card-desc">5問・約1分。現状の整理と今後のケアプランを即時提示。</p>
+      <div class="card-arrow">診断する</div>
+    </a>
+    <a href="column.html" class="card-item">
+      <div class="card-num">02</div>
+      <div class="card-title">メンズ脱毛<br>コラム</div>
+      <p class="card-desc">実際の施術をもとに、脱毛・ボディケアの論点を事例ベースで解説。</p>
+      <div class="card-arrow">一覧を見る</div>
+    </a>
+    <a href="about.html" class="card-item">
+      <div class="card-num">03</div>
+      <div class="card-title">料金表・<br>よくある質問</div>
+      <p class="card-desc">都度払いの料金メニューと、初めての方が気になる疑問を整理。</p>
+      <div class="card-arrow">詳細を見る</div>
+    </a>
   </div>
 </section>
 
-<!-- CTA -->
-<div class="cta-band fade">
-  <div class="section-label">AI Tool</div>
-  <h2 class="section-title">自分の状況を、<br>まず整理する。</h2>
-  <p class="cta-band-desc">5問・約1分。診断結果は提案・勧誘ではありません。あなた自身が現状を把握するための一次整理です。</p>
+<hr class="divider" />
+
+<!-- COLUMN PREVIEW -->
+<section style="padding: 96px 40px;" class="fade-in">
+  <div class="section-eyebrow">Column — 最新記事</div>
+  <h2 class="section-title">脱毛の「なぜ」を<em>整理する</em>。</h2>
+
+  <div class="col-list" style="margin-top: 48px;">
+    <a href="column.html" class="col-item">
+      <div class="col-meta">
+        <div class="col-date">2026.04.10</div>
+        <div class="col-tags">
+          <span class="col-tag">ひげ脱毛</span>
+          <span class="col-tag">初回</span>
+        </div>
+      </div>
+      <div class="col-body">
+        <div class="col-title">ひげ脱毛は「何回で終わる」のか——毛周期と施術回数の正直な話</div>
+        <p class="col-excerpt">「5回で完了」という言葉をよく目にするが、実際はどうか。部位・毛量・肌質によって変わる現実を整理する。</p>
+      </div>
+    </a>
+    <a href="column.html" class="col-item">
+      <div class="col-meta">
+        <div class="col-date">2026.03.28</div>
+        <div class="col-tags">
+          <span class="col-tag">VIO</span>
+          <span class="col-tag">衛生</span>
+        </div>
+      </div>
+      <div class="col-body">
+        <div class="col-title">VIO脱毛を「介護」の前に始めた50代男性——その理由と経過</div>
+        <p class="col-excerpt">清潔感やパートナーへの配慮だけでなく、将来の介護を見据えてVIO脱毛を決断するケースが増えている。</p>
+      </div>
+    </a>
+    <a href="column.html" class="col-item">
+      <div class="col-meta">
+        <div class="col-date">2026.03.15</div>
+        <div class="col-tags">
+          <span class="col-tag">コース不要</span>
+          <span class="col-tag">都度払い</span>
+        </div>
+      </div>
+      <div class="col-body">
+        <div class="col-title">「コース契約」に縛られた男性が、都度払いサロンに乗り換えた話</div>
+        <p class="col-excerpt">使わない月も費用が発生し続けるコース契約。出張族・転勤族に都度払いが選ばれる本当の理由。</p>
+      </div>
+    </a>
+  </div>
+
+  <div style="margin-top: 32px;">
+    <a href="column.html" style="font-size: 12px; letter-spacing: .1em; color: var(--green-main); text-decoration: none; text-transform: uppercase;">
+      コラム一覧 →
+    </a>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band fade-in">
+  <div class="section-eyebrow">AI Tool</div>
+  <h2 class="section-title">自分の状況を、<em>まず整理する</em>。</h2>
+  <p class="cta-band-desc">診断結果は提案・勧誘ではありません。あなた自身が現状を把握するための一次整理です。</p>
   <div class="cta-band-btns">
-    <a href="diagnosis.html" class="btn-dark">AI診断を試す →</a>
-    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="btn-outline-dark">💬 LINEで相談</a>
+    <a href="diagnosis.html" class="btn-white">AI診断を試す</a>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="btn-outline">💬 LINEで相談する</a>
   </div>
 </div>
 
 <!-- SALON INFO -->
-<section class="salon-section">
-  <div class="section-inner">
-    <div class="section-label fade">Salon Info</div>
-    <h2 class="section-title fade">kaede <span class="dim">楓 salon</span></h2>
-    <div class="salon-grid">
-      <div class="salon-card fade"><div class="salon-card-label">Location</div><div class="salon-card-val">東京都台東区東浅草1-9-2<br>浅草駅から徒歩約10分</div></div>
-      <div class="salon-card fade"><div class="salon-card-label">Hours</div><div class="salon-card-val">11:00〜20:00<br>定休日：毎週月曜</div></div>
-      <div class="salon-card fade"><div class="salon-card-label">Price</div><div class="salon-card-val">Sパーツ ¥700〜<br>都度払い・縛りなし</div></div>
-      <div class="salon-card fade"><div class="salon-card-label">Contact</div><div class="salon-card-val"><a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">LINE予約・相談</a><br><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト →</a></div></div>
+<section style="padding: 96px 40px; background: var(--green-pale);" class="fade-in">
+  <div class="section-eyebrow">Salon</div>
+  <h2 class="section-title">kaede 楓 salon</h2>
+  <p class="section-desc" style="margin-bottom: 40px;">
+    東京・浅草で開業4周年。都度払い・コース不要・入会金なし。<br>
+    1部位700円からお試し可能。LGBT フレンドリーなメンズ脱毛サロン。
+  </p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border);">
+    <div style="background: var(--white); padding: 28px 24px;">
+      <div style="font-size: 10px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">Location</div>
+      <div style="font-size: 14px; line-height: 1.8;">東京都台東区東浅草1-9-2<br>浅草駅から徒歩約10分</div>
+    </div>
+    <div style="background: var(--white); padding: 28px 24px;">
+      <div style="font-size: 10px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">Hours</div>
+      <div style="font-size: 14px; line-height: 1.8;">11:00〜20:00<br>定休日：毎週月曜</div>
+    </div>
+    <div style="background: var(--white); padding: 28px 24px;">
+      <div style="font-size: 10px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">Price</div>
+      <div style="font-size: 14px; line-height: 1.8;">Sパーツ 700円〜<br>都度払い・縛りなし</div>
+    </div>
+    <div style="background: var(--white); padding: 28px 24px;">
+      <div style="font-size: 10px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px;">Contact</div>
+      <div style="font-size: 14px; line-height: 1.8;">
+        <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" style="color: var(--green-main); text-decoration: none;">LINE で予約・相談</a><br>
+        <a href="https://kaedesalon.shop/" target="_blank" rel="noopener" style="color: var(--green-main); text-decoration: none;">公式サイトへ →</a>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div>
-    <div class="footer-logo">🍁 kaede salon</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px;letter-spacing:.06em;">東京最安値水準・都度払いのメンズ脱毛サロン / 台東区東浅草</div>
+    <div class="footer-brand">🍁 kaede 楓 salon</div>
+    <div class="footer-sub">東京最安値水準・都度払いのメンズ脱毛サロン / 台東区東浅草</div>
   </div>
   <div class="footer-links">
     <a href="diagnosis.html">AI診断</a>
     <a href="column.html">コラム</a>
     <a href="about.html">料金・FAQ</a>
     <a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">LINE予約</a>
   </div>
   <div class="footer-copy">© 2026 kaede 楓 salon. All rights reserved.</div>
 </footer>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
